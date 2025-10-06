@@ -24,6 +24,119 @@
             padding: 0 15px;
         }
         
+        /* Login Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-modal.show {
+            display: flex;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            animation: slideDown 0.4s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-box h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+        
+        .close-login {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #f73b56;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: #f73b56;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn-login:hover {
+            background: #e82d4a;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .login-help {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
         /* Header */
         header {
             background: #fff;
@@ -70,9 +183,16 @@
             color: #f73b56;
         }
         
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
         .cart-icon {
             position: relative;
             cursor: pointer;
+            font-size: 1.5rem;
         }
         
         .cart-count {
@@ -91,9 +211,44 @@
             font-weight: bold;
         }
         
+        .btn-header {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login-header {
+            background: transparent;
+            color: #666664;
+            border: 2px solid #666664;
+        }
+        
+        .btn-login-header:hover {
+            background: #666664;
+            color: white;
+        }
+        
+        .btn-logout-header {
+            background: #f73b56;
+            color: white;
+        }
+        
+        .btn-logout-header:hover {
+            background: #e82d4a;
+        }
+        
+        .user-name-header {
+            font-weight: 600;
+            color: #333;
+        }
+        
         .mobile-menu {
             display: none;
             cursor: pointer;
+            font-size: 1.5rem;
         }
         
         /* Hero Section */
@@ -156,46 +311,6 @@
             transform: translateY(-2px);
         }
         
-        .scroll_down {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-        }
-        
-        .scroll_down h4 {
-            font-size: 12px;
-            color: white;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        
-        .scroll-indicator {
-            width: 24px;
-            height: 40px;
-            border: 2px solid white;
-            border-radius: 20px;
-            position: relative;
-        }
-        
-        .scroll-dot {
-            width: 4px;
-            height: 12px;
-            background: white;
-            border-radius: 2px;
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: scroll 2s infinite;
-        }
-        
-        @keyframes scroll {
-            0% { top: 8px; opacity: 1; }
-            100% { top: 24px; opacity: 0; }
-        }
-        
         /* Services Section */
         .services {
             padding: 100px 0;
@@ -247,7 +362,6 @@
         
         .single_service i {
             font-size: 3rem;
-            color: #636262;
             margin-bottom: 1rem;
         }
         
@@ -268,6 +382,53 @@
             padding: 100px 0;
         }
         
+        .admin-controls {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .admin-controls.show {
+            display: block;
+        }
+        
+        .admin-controls h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .product-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .product-form input {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .btn-add-product {
+            grid-column: 1 / -1;
+            padding: 1rem;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-add-product:hover {
+            background: #229954;
+        }
+        
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -286,6 +447,25 @@
         
         .menu-item:hover {
             transform: translateY(-10px);
+        }
+        
+        .menu-item.agotado {
+            opacity: 0.6;
+        }
+        
+        .menu-item.agotado::after {
+            content: 'AGOTADO';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            background: rgba(231, 76, 60, 0.95);
+            color: white;
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border-radius: 10px;
+            z-index: 10;
         }
         
         .menu-item img {
@@ -323,9 +503,72 @@
             right: 15px;
             background: #8a8485;
             color: white;
-            padding: 5px 10px;
+            padding: 5px 15px;
             border-radius: 20px;
             font-weight: bold;
+        }
+        
+        .stock-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stock-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .stock-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #27ae60;
+        }
+        
+        .stock-value.low {
+            color: #f39c12;
+        }
+        
+        .stock-value.out {
+            color: #e74c3c;
+        }
+        
+        .admin-controls-card {
+            display: none;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .admin-controls-card.show {
+            display: flex;
+        }
+        
+        .btn-stock {
+            flex: 1;
+            padding: 0.6rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-decrease {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-increase {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .btn-delete {
+            background: #95a5a6;
+            color: white;
         }
         
         .add-to-cart {
@@ -344,242 +587,186 @@
             background: #272425;
         }
         
-        /* Testimonials */
-        .testimonial {
-            padding: 80px 0;
-            background: #f7f5f4;
+        .add-to-cart:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
         }
         
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .single_testimonial {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .stars {
-            color: #ffc107;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .single_testimonial p {
-            color: #818180;
-            font-size: 1.1rem;
-            font-style: italic;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        
-        .single_testimonial h4 {
-            color: #404040;
-            font-size: 1rem;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        
-        /* Fun Facts */
-        .fun_facts {
-            background: linear-gradient(rgba(34,113,176,0.9), rgba(34,113,176,0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="80" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="40" cy="60" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            background-attachment: fixed;
-            padding: 80px 0;
-            color: white;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-        
-        .single_count {
-            padding: 1rem;
-        }
-        
-        .single_count p {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #e7bb1c;
-            margin-bottom: 0.5rem;
-        }
-        
-        .single_count h5 {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        /* Locations */
-        .locations {
-            padding: 100px 0;
-            background: #000;
-            color: white;
-        }
-        
-        .locations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .location-card {
-            background: white;
-            color: #333;
-            padding: 3rem 2rem;
-            border-radius: 15px;
-            text-align: center;
-            position: relative;
-            transform: perspective(1000px) rotateX(5deg);
-            transition: transform 0.3s;
-        }
-        
-        .location-card:hover {
-            transform: perspective(1000px) rotateX(0deg) scale(1.05);
-        }
-        
-        .location-icon {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #666;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10001;
             justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-modal.show {
+            display: flex;
+        }
+        
+        .cart-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-header {
+            background: #f73b56;
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-header h2 {
+            margin: 0;
             font-size: 1.5rem;
         }
         
-        .location-card h3 {
+        .close-cart {
+            background: transparent;
+            border: none;
+            color: white;
             font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .btn-quantity {
+            background: #f73b56;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
             font-weight: bold;
-            margin: 1rem 0;
-            padding-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .location-info {
-            margin: 1.5rem 0;
+        .btn-quantity:hover {
+            background: #e82d4a;
         }
         
-        .location-info p {
-            margin: 0.5rem 0;
+        .quantity-display {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .btn-remove {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+        
+        .cart-footer {
+            border-top: 2px solid #e0e0e0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .btn-whatsapp {
+            width: 100%;
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-        }
-        
-        .btn-location {
-            background: #666;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
             transition: background 0.3s;
         }
         
-        .btn-location:hover {
-            background: #333;
+        .btn-whatsapp:hover {
+            background: #20BA5A;
         }
         
-        /* Contact Section */
-        .contact {
-            padding: 100px 0;
-            background: #f7f5f4;
-        }
-        
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-        
-        .contact-info h4 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 1.5rem;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-        }
-        
-        .contact-item-icon {
-            background: #f73b56;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            flex-shrink: 0;
-        }
-        
-        .contact-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #f73b56;
-        }
-        
-        .btn-submit {
-            width: 100%;
-            background: #f73b56;
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .btn-submit:hover {
-            background: #e82d4a;
+        .btn-whatsapp:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
         }
         
         /* Footer */
@@ -598,60 +785,12 @@
         
         .footer p {
             color: #999;
-            margin-bottom: 2rem;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .social-links a {
-            color: #999;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: white;
         }
         
         .copyright {
             border-top: 1px solid #333;
             padding-top: 2rem;
-        }
-        
-        .copyright p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-        
-        /* Scroll to Top */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: #f73b56;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            z-index: 1000;
-        }
-        
-        .scroll-top.visible {
-            opacity: 1;
-        }
-        
-        .scroll-top:hover {
-            transform: translateY(-5px);
+            margin-top: 2rem;
         }
         
         /* Responsive */
@@ -662,8 +801,6 @@
             
             .mobile-menu {
                 display: block;
-                font-size: 1.5rem;
-                cursor: pointer;
             }
             
             .home_text h2 {
@@ -671,17 +808,8 @@
                 letter-spacing: 5px;
             }
             
-            .contact-content {
+            .product-form {
                 grid-template-columns: 1fr;
-            }
-            
-            .locations-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-            }
-            
-            .location-card {
-                margin: 0 1rem;
             }
             
             .section-title h2 {
@@ -689,22 +817,62 @@
                 letter-spacing: 3px;
             }
         }
-        
-        @media (max-width: 480px) {
-            .home_text h2 {
-                font-size: 2rem;
-                letter-spacing: 2px;
-            }
-            
-            .menu-grid,
-            .services-grid,
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div style="position: relative;">
+            <button class="close-login" onclick="closeLogin()">×</button>
+            <div class="login-box">
+                <h2>Iniciar Sesión</h2>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="username">Usuario</label>
+                        <input type="text" id="username" placeholder="Ingrese su usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="Ingrese su contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-login">Ingresar</button>
+                    <p class="error-message" id="errorMessage">Usuario o contraseña incorrectos</p>
+                </form>
+                <div class="login-help">
+                    <p><strong>Usuarios de prueba:</strong></p>
+                    <p>Admin: <strong>admin</strong> / <strong>admin123</strong></p>
+                    <p>Cliente: <strong>cliente</strong> / <strong>cliente123</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>🛒 Mi Carrito</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="cart-empty">
+                    <p>Tu carrito está vacío</p>
+                    <p style="font-size: 0.9rem;">Agrega productos para comenzar</p>
+                </div>
+            </div>
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">S/ 0.00</span>
+                </div>
+                <button class="btn-whatsapp" onclick="sendWhatsApp()">
+                    <span>📱</span>
+                    <span>Enviar pedido por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -717,18 +885,19 @@
                     <ul>
                         <li><a href="#inicio">Inicio</a></li>
                         <li><a href="#menu">Menú</a></li>
-                        <li><a href="#locales">Locales</a></li>
-                        <li><a href="#nosotros">Nosotros</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
                     </ul>
                 </nav>
                 
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div class="cart-icon" onclick="showCart()">
+                <div class="header-actions">
+                    <div class="cart-icon" onclick="toggleCart()">
                         🛒
                         <span class="cart-count" id="cartCount">0</span>
                     </div>
-                    <div class="mobile-menu" onclick="toggleMobileMenu()">☰</div>
+                    <div id="headerAuth">
+                        <button class="btn-header btn-login-header" onclick="showLogin()">Ingresar</button>
+                    </div>
+                    <div class="mobile-menu">☰</div>
                 </div>
             </div>
         </div>
@@ -740,20 +909,13 @@
             <div class="home_text">
                 <h2>BIENVENIDOS</h2>
                 <p>Sabores auténticos del Perú</p>
-                <button class="btn-hero" onclick="scrollToSection('menu')">Ver Menú</button>
-            </div>
-        </div>
-        
-        <div class="scroll_down">
-            <h4>Desliza hacia abajo</h4>
-            <div class="scroll-indicator">
-                <div class="scroll-dot"></div>
+                <button class="btn-hero" onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})">Ver Menú</button>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services">
+    <section class="services" id="servicios">
         <div class="container">
             <div class="section-title">
                 <h2>Nuestros Servicios</h2>
@@ -785,165 +947,401 @@
     <section class="menu-section" id="menu">
         <div class="container">
             <div class="section-title">
-                <h2>Nuestro Menú</h2>
+                <h2>Productos del Día</h2>
             </div>
             
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=300&h=200&fit=crop" alt="Ceviche Tradicional">
-                    <div class="price-tag">S/100</div>
-                    <div class="menu-item-content">
-                        <div class="menu-category">Platos Principales</div>
-                        <h3>Ceviche de Mero Murike</h3>
-                        <p>Pescado fresco marinado en limón con camote y choclo</p>
-                        <button class="add-to-cart" onclick="addToCart('Ceviche de Mero Murike', 100)">Agregar al Carrito</button>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Arroz con pato">
-                    <div class="price-tag">S/85</div>
-                    <div class="menu-item-content">
-                        <div class="menu-category">Platos Principales</div>
-                        <h3>Arroz con Pato</h3>
-                        <p>Carne de pato en filete arroz verde con loche</p>
-                        <button class="add-to-cart" onclick="addToCart('Arroz con Pato', 85)">Agregar al Carrito</button>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <img src="https://images.com/photo-1544025162-d76694265947?w=300&h=200&fit=crop" alt="Anticuchos">
-                    <div class="price-tag">S/35</div>
-                    <div class="menu-item-content">
-                        <div class="menu-category">Entradas</div>
-                        <h3>Anticuchos</h3>
-                        <p>Brochetas de corazón de res marinadas</p>
-                        <button class="add-to-cart" onclick="addToCart('Anticuchos', 35)">Agregar al Carrito</button>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <img src="https://images.com/photo-1565958011703-44f9829ba187?w=300&h=200&fit=crop" alt="Ceviche a la brasa">
-                    <div class="price-tag">S/100</div>
-                    <div class="menu-item-content">
-                        <div class="menu-category">Platos Principales</div>
-                        <h3>Ceviche a la brasa</h3>
-                        <p>Dados de mero cellado ala parrilla sobre panca de choclo y salsa moises</p>
-                        <button class="add-to-cart" onclick="addToCart('Ceviche a la brasa', 100)">Agregar al Carrito</button>
-                    </div>
+            <!-- Admin Controls -->
+            <div class="admin-controls" id="adminControls">
+                <h3>Panel de Administración</h3>
+                <div class="product-form">
+                    <input type="text" id="productName" placeholder="Nombre del producto">
+                    <input type="number" id="productPrice" placeholder="Precio (S/)" min="0" step="0.01">
+                    <input type="number" id="productStock" placeholder="Stock inicial" min="0">
+                    <input type="text" id="productDescription" placeholder="Descripción" style="grid-column: 1 / -1;">
+                    <button class="btn-add-product" onclick="addProduct()">Agregar Producto</button>
                 </div>
             </div>
+            
+            <div class="menu-grid" id="menuGrid"></div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonial" id="nosotros">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
-            <div class="section-title">
-                <h2>Lo que dicen nuestros clientes</h2>
-            </div>
-            
-            <div class="testimonials-grid">
-                <div class="single_testimonial">
-                    <div class="stars">★★★★★</div>
-                    <p>"La mejor comida peruana de la ciudad. El ceviche es espectacular y el servicio excepcional."</p>
-                    <h4>María González</h4>
-                </div>
-                
-                <div class="single_testimonial">
-                    <div class="stars">★★★★★</div>
-                    <p>"Ambiente familiar y sabores auténticos. Siempre regresamos para disfrutar de sus deliciosos platos."</p>
-                    <h4>Carlos Mendoza</h4>
-                </div>
-                
-                <div class="single_testimonial">
-                    <div class="stars">★★★★★</div>
-                    <p>"El ceviche ala brasa lo más delicioso que he probado. Altamente recomendado para toda la familia."</p>
-                    <h4>Ana López</h4>
-                </div>
+            <h2>FIESTA RESTAURANT</h2>
+            <p>Sabores auténticos del Perú</p>
+            <div class="copyright">
+                <p>© 2025 Restaurante Fiesta - Todos los derechos reservados</p>
             </div>
         </div>
-    </section>
+    </footer>
 
-    <!-- Fun Facts -->
-    <section class="fun_facts">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="single_count">
-                    <p>15</p>
-                    <h5>Años de Experiencia</h5>
-                </div>
-                
-                <div class="single_count">
-                    <p>2</p>
-                    <h5>Locales</h5>
-                </div>
-                
-                <div class="single_count">
-                    <p>50+</p>
-                    <h5>Platos en Menú</h5>
-                </div>
-                
-                <div class="single_count">
-                    <p>1000+</p>
-                    <h5>Clientes Felices</h5>
-                </div>
-            </div>
-        </div>
-    </section>
+    <script>
+        const users = {
+            admin: { password: 'admin123', role: 'admin', name: 'Administrador' },
+            cliente: { password: 'cliente123', role: 'cliente', name: 'Cliente' }
+        };
 
-    <!-- Locations -->
-    <section class="locations" id="locales">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nuestros Locales</h2>
-            </div>
+        let currentUser = null;
+        let cart = [];
+        let products = [
+            {
+                id: 1,
+                name: 'RONDA FRIA',
+                price: 119,
+                stock: 15,
+                description: 'Cebiche Super Fiesta (pesca del día, variedad de mariscos y chalaquita de conchas) con galletas de choclo, camote y choclo. Consultar disponibilidad',
+                image: 'ronda_fria.jpeg',
+                category: 'Platos Principales'
+            },
+            {
+                id: 2,
+                name: 'GALLETAS DE CHOCLO (DOCENA)',
+                price: 100,
+                stock: 12,
+                description: 'dados de pescado sobre panca de choclo',
+                image: 'galletas_choclo.jpg',
+                category: 'Platos Principales'
+            },
+            {
+                id: 3,
+                name: 'CEBICHE CLASICO',
+                price: 80,
+                stock: 0,
+                description: 'Con pesca del día',
+                image: 'cebclasico1.jpg',
+                category: 'Entradas'
+            },
+            {
+                id: 4,
+                name: 'TIRADITO',
+                price: 80,
+                stock: 8,
+                description: 'Clásico con ají amarillo o gourmet con orégano ajo y aceite de olivo.',
+                image: 'tiradito1.jpg'
+            }
+        ];
+        
+        function showLogin() {
+            document.getElementById('loginModal').classList.add('show');
+        }
+
+        function closeLogin() {
+            document.getElementById('loginModal').classList.remove('show');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (users[username] && users[username].password === password) {
+                currentUser = { username, ...users[username] };
+                
+                closeLogin();
+                
+                document.getElementById('headerAuth').innerHTML = `
+                    <span class="user-name-header">${currentUser.name}</span>
+                    <button class="btn-header btn-logout-header" onclick="handleLogout()">Cerrar Sesión</button>
+                `;
+                
+                if (currentUser.role === 'admin') {
+                    document.getElementById('adminControls').classList.add('show');
+                }
+                
+                renderProducts();
+            } else {
+                errorMessage.classList.add('show');
+                setTimeout(() => errorMessage.classList.remove('show'), 3000);
+            }
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            document.getElementById('headerAuth').innerHTML = `
+                <button class="btn-header btn-login-header" onclick="showLogin()">Ingresar</button>
+            `;
+            document.getElementById('adminControls').classList.remove('show');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            renderProducts();
+        }
+
+        function addProduct() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                alert('Solo el administrador puede agregar productos');
+                return;
+            }
+
+            const name = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const stock = parseInt(document.getElementById('productStock').value);
+            const description = document.getElementById('productDescription').value;
+
+            if (!name || !price || stock < 0 || !description) {
+                alert('Complete todos los campos correctamente');
+                return;
+            }
+
+            products.push({
+                id: Date.now(),
+                name,
+                price,
+                stock,
+                description,
+                image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop',
+                category: 'Platos del Día'
+            });
+
+            renderProducts();
             
-            <div class="locations-grid">
-                <div class="location-card">
-                    <div class="location-icon">📍</div>
-                    <h3>LIMA</h3>
-                    <div class="location-info">
-                        <p>📞 +01 242 9909</p>
-                        <p>📍 AV. REDUCTO 1278</p>
+            // Limpiar formulario
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productStock').value = '';
+            document.getElementById('productDescription').value = '';
+            
+            alert('Producto agregado exitosamente');
+        }
+
+        function updateStock(productId, change) {
+            if (!currentUser || currentUser.role !== 'admin') {
+                alert('Solo el administrador puede modificar el stock');
+                return;
+            }
+
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                const newStock = product.stock + change;
+                if (newStock >= 0) {
+                    product.stock = newStock;
+                    renderProducts();
+                } else {
+                    alert('El stock no puede ser negativo');
+                }
+            }
+        }
+
+        function deleteProduct(productId) {
+            if (!currentUser || currentUser.role !== 'admin') {
+                alert('Solo el administrador puede eliminar productos');
+                return;
+            }
+
+            if (confirm('¿Está seguro de eliminar este producto de la pizarra?')) {
+                products = products.filter(p => p.id !== productId);
+                renderProducts();
+                alert('Producto eliminado exitosamente');
+            }
+        }
+
+        function orderProduct(productId) {
+            if (!currentUser) {
+                showLoginAlert();
+                return;
+            }
+            
+            const product = products.find(p => p.id === productId);
+            if (product && product.stock > 0) {
+                addToCart(product);
+            }
+        }
+        
+        function showLoginAlert() {
+            alert('Por favor inicia sesión para agregar productos al carrito');
+            showLogin();
+        }
+        
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+            
+            if (existingItem) {
+                if (existingItem.quantity < product.stock) {
+                    existingItem.quantity++;
+                } else {
+                    alert('No hay suficiente stock disponible');
+                    return;
+                }
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1,
+                    maxStock: product.stock
+                });
+            }
+            
+            updateCartUI();
+            alert(`${product.name} agregado al carrito`);
+        }
+        
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('show');
+            if (modal.classList.contains('show')) {
+                renderCart();
+            }
+        }
+        
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+        
+        function changeQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                const newQuantity = item.quantity + change;
+                if (newQuantity > 0 && newQuantity <= item.maxStock) {
+                    item.quantity = newQuantity;
+                    renderCart();
+                    updateCartUI();
+                } else if (newQuantity > item.maxStock) {
+                    alert('No hay suficiente stock disponible');
+                }
+            }
+        }
+        
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            renderCart();
+            updateCartUI();
+        }
+        
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartFooter = document.getElementById('cartFooter');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="cart-empty">
+                        <p>Tu carrito está vacío</p>
+                        <p style="font-size: 0.9rem;">Agrega productos para comenzar</p>
                     </div>
-                    <button class="btn-location" onclick="openMap('lima')">Ver más</button>
-                </div>
-                
-                <div class="location-card">
-                    <div class="location-icon">📍</div>
-                    <h3>CHICLAYO</h3>
-                    <div class="location-info">
-                        <p>📞 924 516 825</p>
-                        <p>📍 AV. SALAVERRY 1820</p>
-                    </div>
-                    <button class="btn-location" onclick="openMap('chiclayo')">Ver más</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contacto">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contáctanos</h2>
-            </div>
+                `;
+                cartFooter.style.display = 'none';
+                return;
+            }
             
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h4>Información de Contacto</h4>
-                    
-                    <div class="contact-item">
-                        <div class="contact-item-icon">📞</div>
-                        <div>
-                            <p><strong>Teléfonos</strong></p>
-                            <p>Lima: +01 242 9909</p>
-                            <p>Chiclayo: 924 516 825</p>
+            cartFooter.style.display = 'block';
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">S/ ${item.price.toFixed(2)} c/u</div>
+                        <div class="cart-item-controls">
+                            <button class="btn-quantity" onclick="changeQuantity(${item.id}, -1)">-</button>
+                            <span class="quantity-display">${item.quantity}</span>
+                            <button class="btn-quantity" onclick="changeQuantity(${item.id}, 1)">+</button>
+                            <span style="margin-left: 1rem; color: #666;">S/ ${(item.price * item.quantity).toFixed(2)}</span>
                         </div>
                     </div>
-                    
+                    <button class="btn-remove" onclick="removeFromCart(${item.id})">Eliminar</button>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cartTotal').textContent = `S/ ${total.toFixed(2)}`;
+        }
+        
+        function sendWhatsApp() {
+            if (cart.length === 0) {
+                alert('El carrito está vacío');
+                return;
+            }
+            
+            let message = '🍽️ *PEDIDO RESTAURANTE FIESTA*\n\n';
+            
+            cart.forEach(item => {
+                message += `• ${item.name}\n`;
+                message += `  Cantidad: ${item.quantity}\n`;
+                message += `  Precio: S/ ${(item.price * item.quantity).toFixed(2)}\n\n`;
+            });
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `*TOTAL: S/ ${total.toFixed(2)}*\n\n`;
+            message += '¡Gracias por tu pedido!';
+            
+            const whatsappNumber = '51924516825'; // Número de WhatsApp del restaurante
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            // Reducir stock de productos pedidos
+            cart.forEach(cartItem => {
+                const product = products.find(p => p.id === cartItem.id);
+                if (product) {
+                    product.stock -= cartItem.quantity;
+                }
+            });
+            
+            // Limpiar carrito
+            cart = [];
+            updateCartUI();
+            toggleCart();
+            renderProducts();
+            
+            // Abrir WhatsApp
+            window.open(whatsappUrl, '_blank');
+        }
 
-                    <div class="contact-item">
+        function renderProducts() {
+            const grid = document.getElementById('menuGrid');
+            
+            if (products.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: #999;">No hay productos disponibles</p>';
+                return;
+            }
 
+            grid.innerHTML = products.map(product => {
+                const isOutOfStock = product.stock === 0;
+                const isLowStock = product.stock > 0 && product.stock <= 5;
+                const stockClass = isOutOfStock ? 'out' : (isLowStock ? 'low' : '');
+                
+                return `
+                    <div class="menu-item ${isOutOfStock ? 'agotado' : ''}">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="price-tag">S/ ${product.price.toFixed(2)}</div>
+                        <div class="menu-item-content">
+                            <div class="menu-category">${product.category}</div>
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            
+                            ${currentUser ? `
+                                <div class="stock-info">
+                                    <span class="stock-label">Stock:</span>
+                                    <span class="stock-value ${stockClass}">${product.stock}</span>
+                                </div>
+                            ` : ''}
+                            
+                            ${currentUser && currentUser.role === 'admin' ? `
+                                <div class="admin-controls-card show">
+                                    <button class="btn-stock btn-decrease" onclick="updateStock(${product.id}, -1)" ${isOutOfStock ? 'disabled' : ''}>-</button>
+                                    <button class="btn-stock btn-increase" onclick="updateStock(${product.id}, 1)">+</button>
+                                    <button class="btn-stock btn-delete" onclick="deleteProduct(${product.id})">🗑️</button>
+                                </div>
+                            ` : currentUser ? `
+                                <button class="add-to-cart" onclick="orderProduct(${product.id})" ${isOutOfStock ? 'disabled' : ''}>
+                                    ${isOutOfStock ? 'Agotado' : 'Agregar al Carrito'}
+                                </button>
+                            ` : `
+                                <button class="add-to-cart" onclick="showLoginAlert()">
+                                    Inicia sesión para ordenar
+                                </button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
 
+        renderProducts();
+        updateCartUI();
+    </script>
+</body>
+</html>
