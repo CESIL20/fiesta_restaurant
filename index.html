@@ -1,839 +1,179 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Restaurante Fiesta - Sabores auténticos del Perú</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Raleway', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
+        /* ===========================
+           TU CSS ORIGINAL (combinado)
+           =========================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Raleway', sans-serif; line-height: 1.6; color: #999; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
         /* Login Modal */
-        .login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .login-modal.show {
-            display: flex;
-        }
-        
-        .login-box {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 400px;
-            animation: slideDown 0.4s ease;
-        }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .login-box h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
-        }
-        
-        .close-login {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: white;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: #333;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 600;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #f73b56;
-        }
-        
-        .btn-login {
-            width: 100%;
-            padding: 1rem;
-            background: #f73b56;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .btn-login:hover {
-            background: #e82d4a;
-        }
-        
-        .error-message {
-            color: #e74c3c;
-            text-align: center;
-            margin-top: 1rem;
-            display: none;
-        }
-        
-        .error-message.show {
-            display: block;
-        }
-        
-        .login-help {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e0e0e0;
-            font-size: 0.85rem;
-            color: #666;
-        }
-        
+        .login-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
+        .login-modal.show { display:flex; }
+        .login-box { background: white; padding: 3rem; border-radius: 20px; width: 100%; max-width: 400px; animation: slideDown 0.4s ease; }
+        @keyframes slideDown { from { opacity:0; transform: translateY(-50px);} to { opacity:1; transform: translateY(0);} }
+        .login-box h2 { text-align:center; color:#333; margin-bottom:2rem; font-size:1.8rem; }
+        .close-login { position:absolute; top:20px; right:20px; background:white; border:none; font-size:2rem; cursor:pointer; width:40px; height:40px; border-radius:50%; color:#333; }
+        .form-group { margin-bottom:1.5rem; }
+        .form-group label { display:block; margin-bottom:0.5rem; color:#333; font-weight:600; }
+        .form-group input { width:100%; padding:1rem; border:2px solid #e0e0e0; border-radius:10px; font-size:1rem; }
+        .form-group input:focus { outline:none; border-color:#f73b56; }
+        .btn-login { width:100%; padding:1rem; background:#f73b56; color:white; border:none; border-radius:10px; font-size:1.1rem; font-weight:600; cursor:pointer; transition:background 0.3s; }
+        .btn-login:hover { background:#e82d4a; }
+        .error-message { color:#e74c3c; text-align:center; margin-top:1rem; display:none; }
+        .error-message.show { display:block; }
+        .login-help { margin-top:2rem; padding-top:2rem; border-top:1px solid #e0e0e0; font-size:0.85rem; color:#666; }
+
         /* Header */
-        header {
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #333;
-        }
-        
-        .logo span {
-            color: #757272;
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-        
-        nav a {
-            text-decoration: none;
-            color: #666664;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover {
-            color: #f73b56;
-        }
-        
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .cart-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #f73b56;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .btn-header {
-            padding: 0.6rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn-login-header {
-            background: transparent;
-            color: #666664;
-            border: 2px solid #666664;
-        }
-        
-        .btn-login-header:hover {
-            background: #666664;
-            color: white;
-        }
-        
-        .btn-logout-header {
-            background: #f73b56;
-            color: white;
-        }
-        
-        .btn-logout-header:hover {
-            background: #e82d4a;
-        }
-        
-        .user-name-header {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .mobile-menu {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-        
+        header { background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.1); position:fixed; width:100%; top:0; z-index:1000; }
+        .header-content { display:flex; justify-content:space-between; align-items:center; padding:1rem 0; }
+        .logo { font-size:2rem; font-weight:900; color:#333; }
+        .logo span { color:#757272; font-size:0.8rem; margin-left:0.5rem; }
+        nav ul { list-style:none; display:flex; gap:2rem; align-items:center; }
+        nav a { text-decoration:none; color:#666664; font-weight:bold; transition:color 0.3s; }
+        nav a:hover { color:#f73b56; }
+        .header-actions { display:flex; align-items:center; gap:1rem; }
+        .cart-icon { position:relative; cursor:pointer; font-size:1.5rem; }
+        .cart-count { position:absolute; top:-8px; right:-8px; background:#f73b56; color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; }
+        .btn-header { padding:0.6rem 1.5rem; border:none; border-radius:25px; font-weight:600; cursor:pointer; transition:all 0.3s; }
+        .btn-login-header { background:transparent; color:#666664; border:2px solid #666664; }
+        .btn-login-header:hover { background:#666664; color:white; }
+        .btn-logout-header { background:#f73b56; color:white; }
+        .btn-logout-header:hover { background:#e82d4a; }
+        .user-name-header { font-weight:600; color:#333; }
+        .mobile-menu { display:none; cursor:pointer; font-size:1.5rem; }
+
         /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #463d3f, #8a8784);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            color: white;
-            text-align: center;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 10;
-        }
-        
-        .home_text h2 {
-            color: white;
-            font-size: 4rem;
-            text-transform: uppercase;
-            letter-spacing: 13px;
-            margin-bottom: 1rem;
-            font-weight: 900;
-        }
-        
-        .home_text p {
-            color: white;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            letter-spacing: 3px;
-        }
-        
-        .btn-hero {
-            background: white;
-            color: #413c3d;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .btn-hero:hover {
-            transform: translateY(-2px);
-        }
-        
+        .hero { height:100vh; background:linear-gradient(135deg,#463d3f,#8a8784); display:flex; align-items:center; justify-content:center; position:relative; color:white; text-align:center; }
+        .hero::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4); }
+        .hero-content { position:relative; z-index:10; }
+        .home_text h2 { color:white; font-size:4rem; text-transform:uppercase; letter-spacing:13px; margin-bottom:1rem; font-weight:900; }
+        .home_text p { color:white; font-size:1.2rem; text-transform:uppercase; margin-bottom:2rem; letter-spacing:3px; }
+
+        .btn-hero { background:white; color:#413c3d; padding:15px 30px; border:none; border-radius:50px; font-weight:bold; font-size:1.1rem; cursor:pointer; transition:transform 0.3s; }
+        .btn-hero:hover { transform:translateY(-2px); }
+
         /* Services Section */
-        .services {
-            padding: 100px 0;
-            background: #f7f5f4;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: #3d3d3d;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: #4d4748;
-            margin: 0 auto;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .single_service {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .single_service:hover {
-            transform: translateY(-5px);
-        }
-        
-        .single_service i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .single_service h2 {
-            color: #5b5b5d;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        .single_service p {
-            color: #666;
-            line-height: 1.6;
-        }
-        
+        .services { padding:100px 0; background:#f7f5f4; }
+        .section-title { text-align:center; margin-bottom:60px; }
+        .section-title h2 { font-size:2.5rem; color:#3d3d3d; text-transform:uppercase; letter-spacing:6px; margin-bottom:20px; font-weight:900; }
+        .section-title::after { content:''; display:block; width:80px; height:3px; background:#4d4748; margin:0 auto; }
+
+        .services-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:2rem; margin-top:3rem; }
+        .single_service { text-align:center; padding:2rem; background:white; border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,0.1); transition:transform 0.3s; }
+        .single_service:hover { transform:translateY(-5px); }
+        .single_service i { font-size:3rem; margin-bottom:1rem; }
+        .single_service h2 { color:#5b5b5d; font-size:1.3rem; margin-bottom:1rem; font-weight:600; }
+        .single_service p { color:#666; line-height:1.6; }
+
         /* Menu Section */
-        .menu-section {
-            padding: 100px 0;
-        }
-        
-        .admin-controls {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 3rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            display: none;
-        }
-        
-        .admin-controls.show {
-            display: block;
-        }
-        
-        .admin-controls h3 {
-            color: #333;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-        
-        .product-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        .product-form input {
-            padding: 0.8rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-        
-        .btn-add-product {
-            grid-column: 1 / -1;
-            padding: 1rem;
-            background: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .btn-add-product:hover {
-            background: #229954;
-        }
-        
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .menu-item {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            position: relative;
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-10px);
-        }
-        
-        .menu-item.agotado {
-            opacity: 0.6;
-        }
-        
-        .menu-item.agotado::after {
-            content: 'AGOTADO';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-15deg);
-            background: rgba(231, 76, 60, 0.95);
-            color: white;
-            padding: 1rem 3rem;
-            font-size: 1.5rem;
-            font-weight: 900;
-            border-radius: 10px;
-            z-index: 10;
-        }
-        
-        .menu-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .menu-item-content {
-            padding: 1.5rem;
-        }
-        
-        .menu-category {
-            color: #5f5d5d;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        
-        .menu-item h3 {
-            font-size: 1.3rem;
-            margin: 0.5rem 0;
-            color: #333;
-        }
-        
-        .menu-item p {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-        
-        .price-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #8a8485;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        
-        .stock-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding: 0.8rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .stock-label {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .stock-value {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #27ae60;
-        }
-        
-        .stock-value.low {
-            color: #f39c12;
-        }
-        
-        .stock-value.out {
-            color: #e74c3c;
-        }
-        
-        .admin-controls-card {
-            display: none;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .admin-controls-card.show {
-            display: flex;
-        }
-        
-        .btn-stock {
-            flex: 1;
-            padding: 0.6rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .btn-decrease {
-            background: #e74c3c;
-            color: white;
-        }
-        
-        .btn-increase {
-            background: #27ae60;
-            color: white;
-        }
-        
-        .btn-delete {
-            background: #95a5a6;
-            color: white;
-        }
-        
-        .add-to-cart {
-            width: 100%;
-            background: #585657;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .add-to-cart:hover {
-            background: #272425;
-        }
-        
-        .add-to-cart:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-        }
-        
-        /* Cart Modal */
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 10001;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .cart-modal.show {
-            display: flex;
-        }
-        
-        .cart-content {
-            background: white;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            border-radius: 20px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .cart-header {
-            background: #f73b56;
-            color: white;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .cart-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-        
-        .close-cart {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-        }
-        
-        .cart-items {
-            padding: 1.5rem;
-            overflow-y: auto;
-            flex: 1;
-        }
-        
-        .cart-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-        
-        .cart-item-image {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        
-        .cart-item-details {
-            flex: 1;
-        }
-        
-        .cart-item-name {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-        
-        .cart-item-price {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        
-        .btn-quantity {
-            background: #f73b56;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .btn-quantity:hover {
-            background: #e82d4a;
-        }
-        
-        .quantity-display {
-            min-width: 30px;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .btn-remove {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            margin-left: auto;
-        }
-        
-        .cart-empty {
-            text-align: center;
-            padding: 3rem;
-            color: #999;
-        }
-        
-        .cart-footer {
-            border-top: 2px solid #e0e0e0;
-            padding: 1.5rem;
-            background: #f8f9fa;
-        }
-        
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-        
-        .btn-whatsapp {
-            width: 100%;
-            background: #25D366;
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: background 0.3s;
-        }
-        
-        .btn-whatsapp:hover {
-            background: #20BA5A;
-        }
-        
-        .btn-whatsapp:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-        }
-        
-        /* Footer */
-        .footer {
-            background: #000;
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-        }
-        
-        .footer h2 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-        
-        .footer p {
-            color: #999;
-        }
-        
-        .copyright {
-            border-top: 1px solid #333;
-            padding-top: 2rem;
-            margin-top: 2rem;
-        }
-        
+        .menu-section { padding:100px 0; margin-top:20px; }
+        .admin-controls { background:white; padding:2rem; border-radius:15px; margin-bottom:3rem; box-shadow:0 5px 20px rgba(0,0,0,0.1); display:none; }
+        .admin-controls.show { display:block; }
+        .admin-controls h3 { color:#333; margin-bottom:1.5rem; font-size:1.5rem; }
+        .admin-tabs { display:flex; gap:1rem; margin-bottom:2rem; }
+        .tab-btn { padding:0.8rem 1.5rem; background:#e0e0e0; color:#333; border:none; border-radius:8px; font-weight:600; cursor:pointer; transition:all 0.3s; }
+        .tab-btn.active { background:#f73b56; color:white; }
+        .tab-content { display:none; }
+        .tab-content.active { display:block; }
+        .product-form { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
+        .product-form input { padding:0.8rem; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; }
+        .btn-add-product { grid-column:1 / -1; padding:1rem; background:#27ae60; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; }
+        .btn-add-product:hover { background:#229954; }
+
+        .menu-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:2rem; margin-top:3rem; }
+        .menu-item { background:white; border-radius:15px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.1); transition:transform 0.3s; position:relative; }
+        .menu-item:hover { transform:translateY(-10px); }
+        .menu-item.agotado { opacity:0.6; }
+        .menu-item.agotado::after { content:'AGOTADO'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-15deg); background:rgba(231,76,60,0.95); color:white; padding:1rem 3rem; font-size:1.5rem; font-weight:900; border-radius:10px; z-index:10; }
+        .menu-item img { width:100%; height:200px; object-fit:cover; }
+        .menu-item-content { padding:1.5rem; }
+        .menu-category { color:#5f5d5d; font-size:0.9rem; font-weight:600; text-transform:uppercase; }
+        .menu-item h3 { font-size:1.3rem; margin:0.5rem 0; color:#333; }
+        .menu-item p { color:#666; font-size:0.9rem; margin-bottom:1rem; }
+        .price-tag { position:absolute; top:15px; right:15px; background:#8a8485; color:white; padding:5px 15px; border-radius:20px; font-weight:bold; }
+        .stock-info { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; padding:0.8rem; background:#f8f9fa; border-radius:8px; }
+        .stock-label { font-weight:600; color:#333; }
+        .stock-value { font-size:1.2rem; font-weight:700; color:#27ae60; }
+        .stock-value.low { color:#f39c12; }
+        .stock-value.out { color:#e74c3c; }
+        .admin-controls-card { display:none; gap:0.5rem; margin-bottom:1rem; }
+        .admin-controls-card.show { display:flex; }
+        .btn-stock { flex:1; padding:0.6rem; border:none; border-radius:8px; font-weight:600; cursor:pointer; }
+        .btn-decrease { background:#e74c3c; color:white; }
+        .btn-increase { background:#27ae60; color:white; }
+        .btn-delete { background:#95a5a6; color:white; }
+
+        /* Pizarra Styles (section added) */
+        .pizarra-section { background:#111; color:#f4f4f4; padding:40px 20px; margin-top: 40px; border-radius:8px; }
+        .pizarra-title { text-align:center; margin-bottom:20px; font-size:1.6rem; }
+        .pizarra-login { text-align:center; margin-bottom:1rem; }
+        .pizarra-login input { padding:10px; border-radius:8px; border:none; margin-right:8px; width:220px; max-width:60%; }
+        .pizarra-login button { padding:10px 14px; border-radius:8px; border:none; background:#e63946; color:white; cursor:pointer; }
+        .pizarra-lista { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:16px; margin-top:20px; }
+        .pizarra-card { background:#1b1b1b; padding:16px; border-radius:12px; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.2); }
+        .pizarra-card h4 { margin-bottom:10px; }
+        .pizarra-card button { background:#e63946; color:white; border:none; padding:6px 10px; border-radius:8px; cursor:pointer; }
+
+        /* small helpers */
+        .hidden { display:none !important; }
+
+        /* Cart & Footer */
+        .cart-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:10001; justify-content:center; align-items:center; }
+        .cart-modal.show { display:flex; }
+        .cart-content { background:white; width:90%; max-width:600px; max-height:80vh; border-radius:20px; overflow:hidden; display:flex; flex-direction:column; }
+        .cart-header { background:#f73b56; color:white; padding:1.5rem; display:flex; justify-content:space-between; align-items:center; }
+        .close-cart { background:transparent; border:none; color:white; font-size:2rem; cursor:pointer; }
+        .cart-items { padding:1.5rem; overflow-y:auto; flex:1; }
+        .cart-item { display:flex; gap:1rem; padding:1rem; background:#f8f9fa; border-radius:10px; margin-bottom:1rem; }
+        .cart-item-image { width:80px; height:80px; object-fit:cover; border-radius:8px; }
+        .cart-item-details { flex:1; }
+        .cart-item-name { font-weight:600; color:#333; margin-bottom:0.5rem; }
+        .cart-item-price { color:#666; font-size:0.9rem; }
+        .cart-item-controls { display:flex; align-items:center; gap:0.5rem; margin-top:0.5rem; }
+        .btn-quantity { background:#f73b56; color:white; border:none; width:30px; height:30px; border-radius:5px; cursor:pointer; font-weight:bold; display:flex; align-items:center; justify-content:center; }
+        .quantity-display { min-width:30px; text-align:center; font-weight:600; }
+        .btn-remove { background:#e74c3c; color:white; border:none; padding:0.4rem 0.8rem; border-radius:5px; cursor:pointer; font-size:0.85rem; margin-left:auto; }
+        .cart-empty { text-align:center; padding:3rem; color:#999; }
+        .cart-footer { border-top:2px solid #e0e0e0; padding:1.5rem; background:#f8f9fa; }
+        .cart-total { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; font-size:1.2rem; font-weight:700; }
+
+        .footer { background:#000; color:white; padding:3rem 0; text-align:center; margin-top:40px; }
+        .footer h2 { font-size:2rem; font-weight:bold; margin-bottom:1rem; }
+        .footer p { color:#999; }
+        .copyright { border-top:1px solid #333; padding-top:2rem; margin-top:2rem; }
+
         /* Responsive */
         @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .home_text h2 {
-                font-size: 2.5rem;
-                letter-spacing: 5px;
-            }
-            
-            .product-form {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-                letter-spacing: 3px;
-            }
+            nav ul { display:none; }
+            .mobile-menu { display:block; }
+            .home_text h2 { font-size:2.5rem; letter-spacing:5px; }
+            .product-form { grid-template-columns:1fr; }
+            .section-title h2 { font-size:2rem; letter-spacing:3px; }
         }
     </style>
 </head>
 <body>
     <!-- Login Modal -->
     <div class="login-modal" id="loginModal">
-        <div style="position: relative;">
+        <div style="position:relative;">
             <button class="close-login" onclick="closeLogin()">×</button>
             <div class="login-box">
                 <h2>Iniciar Sesión</h2>
                 <form onsubmit="handleLogin(event)">
                     <div class="form-group">
                         <label for="username">Usuario</label>
-                        <input type="text" id="username" placeholder="Ingrese su usuario" required>
+                        <input type="text" id="username" placeholder="Ingrese su usuario" required />
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input type="password" id="password" placeholder="Ingrese su contraseña" required>
+                        <input type="password" id="password" placeholder="Ingrese su contraseña" required />
                     </div>
                     <button type="submit" class="btn-login">Ingresar</button>
                     <p class="error-message" id="errorMessage">Usuario o contraseña incorrectos</p>
@@ -841,6 +181,7 @@
                 <div class="login-help">
                     <p><strong>Usuarios de prueba:</strong></p>
                     <p>Admin: <strong>admin</strong> / <strong>admin123</strong></p>
+                    <p>Empleado: <strong>empresa</strong> / <strong>empresa123</strong></p>
                     <p>Cliente: <strong>cliente</strong> / <strong>cliente123</strong></p>
                 </div>
             </div>
@@ -857,18 +198,15 @@
             <div class="cart-items" id="cartItems">
                 <div class="cart-empty">
                     <p>Tu carrito está vacío</p>
-                    <p style="font-size: 0.9rem;">Agrega productos para comenzar</p>
+                    <p style="font-size:0.9rem;">Agrega productos para comenzar</p>
                 </div>
             </div>
-            <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-footer" id="cartFooter" style="display:none;">
                 <div class="cart-total">
                     <span>Total:</span>
                     <span id="cartTotal">S/ 0.00</span>
                 </div>
-                <button class="btn-whatsapp" onclick="sendWhatsApp()">
-                    <span>📱</span>
-                    <span>Enviar pedido por WhatsApp</span>
-                </button>
+                <button class="btn-whatsapp" id="btnWhats" onclick="sendWhatsApp()">📱 Enviar pedido por WhatsApp</button>
             </div>
         </div>
     </div>
@@ -882,10 +220,11 @@
                 </div>
                 
                 <nav>
-                    <ul>
+                    <ul id="mainNav">
                         <li><a href="#inicio">Inicio</a></li>
                         <li><a href="#menu">Menú</a></li>
                         <li><a href="#servicios">Servicios</a></li>
+                        <li id="navPizarraBtn" style="display:none;"><a href="#" onclick="openPizarraFromNav(event)">Pizarra del Día</a></li>
                     </ul>
                 </nav>
                 
@@ -909,7 +248,7 @@
             <div class="home_text">
                 <h2>BIENVENIDOS</h2>
                 <p>Sabores auténticos del Perú</p>
-                <button class="btn-hero" onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})">Ver Menú</button>
+                <button class="btn-hero" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Ver Menú</button>
             </div>
         </div>
     </section>
@@ -920,20 +259,17 @@
             <div class="section-title">
                 <h2>Nuestros Servicios</h2>
             </div>
-            
             <div class="services-grid">
                 <div class="single_service">
                     <i>👥</i>
                     <h2>Eventos Especiales</h2>
                     <p>Organizamos tus celebraciones con el mejor sabor peruano. Cumpleaños, bodas, eventos corporativos y más.</p>
                 </div>
-                
                 <div class="single_service">
                     <i>🕒</i>
                     <h2>Delivery Rápido</h2>
                     <p>Llevamos nuestros platos frescos hasta tu puerta. Delivery en toda Lima y Chiclayo en tiempo récord.</p>
                 </div>
-                
                 <div class="single_service">
                     <i>❤️</i>
                     <h2>Cocina Tradicional</h2>
@@ -952,17 +288,100 @@
             
             <!-- Admin Controls -->
             <div class="admin-controls" id="adminControls">
-                <h3>Panel de Administración</h3>
-                <div class="product-form">
-                    <input type="text" id="productName" placeholder="Nombre del producto">
-                    <input type="number" id="productPrice" placeholder="Precio (S/)" min="0" step="0.01">
-                    <input type="number" id="productStock" placeholder="Stock inicial" min="0">
-                    <input type="text" id="productDescription" placeholder="Descripción" style="grid-column: 1 / -1;">
-                    <button class="btn-add-product" onclick="addProduct()">Agregar Producto</button>
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="switchTab('productos')">Gestión Simple</button>
+                    <button class="tab-btn" onclick="switchTab('pizarra')">Pizarra Digital</button>
+                </div>
+                
+                <!-- Tab Productos Simple -->
+                <div class="tab-content active" id="tabProductos">
+                    <h3>Agregar Producto Rápido</h3>
+                    <div class="product-form">
+                        <input type="text" id="productName" placeholder="Nombre del producto"/>
+                        <input type="number" id="productPrice" placeholder="Precio (S/)" min="0" step="0.01"/>
+                        <input type="number" id="productStock" placeholder="Stock inicial" min="0"/>
+                        <input type="text" id="productDescription" placeholder="Descripción" style="grid-column:1 / -1;"/>
+                        <button class="btn-add-product" onclick="addProduct()">Agregar Producto</button>
+                    </div>
+                </div>
+                
+                <!-- Tab Pizarra Digital -->
+                <div class="tab-content" id="tabPizarra">
+                    <div class="pizarra-container">
+                        <h3 style="margin-top:0; color:#606163;">Pizarra Digital - Gestión Avanzada</h3>
+                        <div class="pizarra-grid">
+                            <div class="pizarra-card">
+                                <h4 style="margin-top:0">Agregar producto</h4>
+                                <form class="pizarra-form" id="pizarraAddForm">
+                                    <div class="row">
+                                        <label for="pizarraName">Nombre del producto</label>
+                                        <input id="pizarraName" type="text" required placeholder="Ej: Lomo saltado" />
+                                    </div>
+                                    <div class="row">
+                                        <label for="pizarraPrice">Precio (S/.)</label>
+                                        <input id="pizarraPrice" type="number" min="0" step="0.01" required placeholder="Ej: 25.50" />
+                                    </div>
+                                    <div class="row">
+                                        <label for="pizarraStock">Stock inicial (unidades)</label>
+                                        <input id="pizarraStock" type="number" min="0" step="1" value="10" required />
+                                    </div>
+                                    <div style="display:flex;gap:8px;align-items:center">
+                                        <button type="submit" class="pizarra-btn">Agregar</button>
+                                        <button id="pizarraResetBtn" type="button" class="pizarra-btn pizarra-btn-ghost" style="padding: 10px 12px; font-size: 0.9rem;">Restablecer</button>
+                                    </div>
+                                </form>
+
+                                <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+
+                                <div>
+                                    <h4 style="margin:0 0 8px 0">Buscar / Filtrar</h4>
+                                    <div class="pizarra-search">
+                                        <input id="pizarraSearch" type="text" placeholder="Buscar por nombre..." style="flex:1;padding:10px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);color:#e6eef6" />
+                                        <select id="pizarraSort" class="pizarra-btn pizarra-btn-ghost" style="padding: 10px 12px; font-size: 0.9rem;">
+                                            <option value="name">Orden: nombre</option>
+                                            <option value="price">Orden: precio</option>
+                                            <option value="stock">Orden: stock</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pizarra-card">
+                                <h4 style="margin-top:0">Productos en Pizarra</h4>
+                                <div id="pizarraEmpty" style="padding:12px; color:#94a3b8">Cargando...</div>
+                                <table class="pizarra-table" id="pizarraTable" style="display:none;margin-top:10px">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Precio</th>
+                                            <th>Stock</th>
+                                            <th>Pedido</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pizarraBody"></tbody>
+                                </table>
+                                <div class="pizarra-summary">
+                                    <div id="pizarraSummary">—</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+
             <div class="menu-grid" id="menuGrid"></div>
+        </div>
+    </section>
+
+    <!-- PIZARRA PUBLICA (vista para empleados) -->
+    <section class="pizarra-section hidden" id="pizarraPublico">
+        <div class="container">
+            <h2 class="pizarra-title">📋 Pizarra del Día</h2>
+            <div id="pizarraListaPublica" class="pizarra-lista"></div>
+            <div style="text-align:center; margin-top:12px;">
+                <button class="pizarra-btn pizarra-btn-ghost" onclick="closePizarraPublico()" id="btnCerrarPizarraPublico">Cerrar</button>
+            </div>
         </div>
     </section>
 
@@ -970,166 +389,210 @@
     <footer class="footer">
         <div class="container">
             <h2>FIESTA RESTAURANT</h2>
-            <p>Sabores auténticos del Perú</p>
+          
             <div class="copyright">
                 <p>© 2025 Restaurante Fiesta - Todos los derechos reservados</p>
             </div>
         </div>
     </footer>
 
+    <!-- ===========================
+         JAVASCRIPT - LÓGICA COMPLETA
+         =========================== -->
     <script>
+        /* ---------------------
+           Usuarios (roles)
+           --------------------- */
         const users = {
             admin: { password: 'admin123', role: 'admin', name: 'Administrador' },
+            empresa: { password: 'empresa123', role: 'empleado', name: 'Empleado' },
             cliente: { password: 'cliente123', role: 'cliente', name: 'Cliente' }
         };
 
         let currentUser = null;
         let cart = [];
+        // Productos existentes en menú (tu lista inicial)
         let products = [
-            {
-                id: 1,
-                name: 'RONDA FRIA',
-                price: 119,
-                stock: 15,
-                description: 'Cebiche Super Fiesta (pesca del día, variedad de mariscos y chalaquita de conchas) con galletas de choclo, camote y choclo. Consultar disponibilidad',
-                image: 'ronda_fria.jpeg',
-                category: 'Platos Principales'
-            },
-            {
-                id: 2,
-                name: 'GALLETAS DE CHOCLO (DOCENA)',
-                price: 100,
-                stock: 12,
-                description: 'dados de pescado sobre panca de choclo',
-                image: 'galletas_choclo.jpg',
-                category: 'Platos Principales'
-            },
-            {
-                id: 3,
-                name: 'CEBICHE CLASICO',
-                price: 80,
-                stock: 0,
-                description: 'Con pesca del día',
-                image: 'cebclasico1.jpg',
-                category: 'Entradas'
-            },
-            {
-                id: 4,
-                name: 'TIRADITO',
-                price: 80,
-                stock: 8,
-                description: 'Clásico con ají amarillo o gourmet con orégano ajo y aceite de olivo.',
-                image: 'tiradito1.jpg'
-            }
+            { id: 1, name: 'CEBICHE CLASICO', price: 80, stock: 15, description: 'Con pesca del día', image: 'cebclasico1.jpg', category: 'Platos Principales' },
+            { id: 2, name: 'CEBICHE CALIENTE', price:  120, stock: 12, description: 'Envuelto; hecho Panquita, pesca del día 300 gr', image: 'cebcaliente1.jpg', category: 'Platos Principales' },
+            { id: 3, name: 'GALLETAS DE CHOCLO (DOCENA)', price: 100, stock: 0, description: 'hechas con maiz choclo', image: 'galletas_choclo.jpg', category: 'Entradas' },
+            { id: 4, name: 'TIRADITO', price: 25, stock: 8, description: 'Clásico con ají amarillo o gourmet con orégano ajo y aceite de olivo.', image: 'tiradito1.jpg', category: 'Platos Principales' }
         ];
-        
-        function showLogin() {
-            document.getElementById('loginModal').classList.add('show');
-        }
 
-        function closeLogin() {
-            document.getElementById('loginModal').classList.remove('show');
+        /* ---------------------
+           PIZARRA (localStorage)
+           --------------------- */
+        const LS_KEY = 'pizarraProductos_rf';
+        let pizarraProductos = [];
+
+        function loadPizarra() {
+            const raw = localStorage.getItem(LS_KEY);
+            if (!raw) {
+                // datos demo
+                pizarraProductos = [
+                    { id: genPizarraId(), name: 'CEBICHE CLASICO', price: 80.00, stock: 12, pedido: 0 },
+                    { id: genPizarraId(), name: 'CEBICHE CALIENTE', price:  120.00, stock: 8, pedido: 0 },
+                    { id: genPizarraId(), name: 'GALLETAS DE CHOCLO (DOCENA)', price: 100.00, stock: 15, pedido: 0 }
+                    
+                ];
+                savePizarra();
+            } else {
+                try { pizarraProductos = JSON.parse(raw) || []; } catch(e){ console.error(e); pizarraProductos = []; }
+            }
         }
+        function savePizarra() { localStorage.setItem(LS_KEY, JSON.stringify(pizarraProductos)); }
+        function genPizarraId() { return 'pz_' + Math.random().toString(36).slice(2,9); }
+
+        /* ---------------------
+           UI helpers & Login
+           --------------------- */
+        function showLogin() { document.getElementById('loginModal').classList.add('show'); }
+        function closeLogin() { document.getElementById('loginModal').classList.remove('show'); }
 
         function handleLogin(event) {
             event.preventDefault();
-            const username = document.getElementById('username').value;
+            const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('errorMessage');
 
             if (users[username] && users[username].password === password) {
                 currentUser = { username, ...users[username] };
-                
                 closeLogin();
-                
-                document.getElementById('headerAuth').innerHTML = `
-                    <span class="user-name-header">${currentUser.name}</span>
-                    <button class="btn-header btn-logout-header" onclick="handleLogout()">Cerrar Sesión</button>
-                `;
-                
+                updateHeaderAuth();
+                // mostrar controles admin si corresponde
+                if (currentUser.role === 'admin') document.getElementById('adminControls').classList.add('show');
+                else document.getElementById('adminControls').classList.remove('show');
+
+                // mostrar boton pizarra en nav si admin o empleado
+                updateNavPizarraButton();
+
+                // si admin o empleado mostramos la pizarra publica/privada según rol
                 if (currentUser.role === 'admin') {
-                    document.getElementById('adminControls').classList.add('show');
+                    // mostrar el tab pizarra si admin
+                    switchTab('pizarra');
                 }
-                
+
                 renderProducts();
+                renderPizarra();
+                renderPizarraPublica();
             } else {
                 errorMessage.classList.add('show');
-                setTimeout(() => errorMessage.classList.remove('show'), 3000);
+                setTimeout(()=> errorMessage.classList.remove('show'), 3000);
             }
         }
 
         function handleLogout() {
             currentUser = null;
-            document.getElementById('headerAuth').innerHTML = `
-                <button class="btn-header btn-login-header" onclick="showLogin()">Ingresar</button>
-            `;
+            document.getElementById('headerAuth').innerHTML = `<button class="btn-header btn-login-header" onclick="showLogin()">Ingresar</button>`;
             document.getElementById('adminControls').classList.remove('show');
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
+            updateNavPizarraButton();
             renderProducts();
+            renderPizarraPublica();
+        }
+
+        function updateHeaderAuth() {
+            document.getElementById('headerAuth').innerHTML = `<span class="user-name-header">${currentUser.name}</span> <button class="btn-header btn-logout-header" onclick="handleLogout()">Cerrar Sesión</button>`;
+        }
+
+        function updateNavPizarraButton() {
+            const navBtn = document.getElementById('navPizarraBtn');
+            if (currentUser && (currentUser.role === 'admin' || currentUser.role === 'empleado')) {
+                navBtn.style.display = 'inline-block';
+            } else {
+                navBtn.style.display = 'none';
+            }
+        }
+
+        function openPizarraFromNav(ev) {
+            ev.preventDefault();
+            // Si admin -> abrir sección pizarra en menú (tab). Si empleado -> abrir vista publica
+            if (!currentUser) { alert('Inicia sesión como empleado o admin para ver la pizarra.'); return; }
+            if (currentUser.role === 'admin') {
+                // saltar a sección menu y seleccionar pizarra tab
+                document.getElementById('menu').scrollIntoView({behavior:'smooth'});
+                switchTab('pizarra');
+            } else {
+                // empleado -> abrir pizarra publica grande
+                document.getElementById('pizarraPublico').classList.remove('hidden');
+                document.getElementById('pizarraPublico').scrollIntoView({behavior:'smooth'});
+            }
+        }
+
+        /* ---------------------
+           Product listing & Cart
+           --------------------- */
+        function renderProducts() {
+            const grid = document.getElementById('menuGrid');
+            if (!grid) return;
+            if (products.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; color:#999;">No hay productos disponibles</p>';
+                return;
+            }
+
+            grid.innerHTML = products.map(product => {
+                const isOutOfStock = product.stock === 0;
+                const isLowStock = product.stock > 0 && product.stock <= 5;
+                const stockClass = isOutOfStock ? 'out' : (isLowStock ? 'low' : '');
+                return `
+                    <div class="menu-item ${isOutOfStock ? 'agotado' : ''}">
+                        <img src="${product.image}" alt="${product.name}" />
+                        <div class="price-tag">S/ ${product.price.toFixed(2)}</div>
+                        <div class="menu-item-content">
+                            <div class="menu-category">${product.category}</div>
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            ${currentUser ? `
+                                <div class="stock-info">
+                                    <span class="stock-label">Stock:</span>
+                                    <span class="stock-value ${stockClass}">${product.stock}</span>
+                                </div>
+                            ` : ''}
+                            ${currentUser && currentUser.role === 'admin' ? `
+                                <div class="admin-controls-card show">
+                                    <button class="btn-stock btn-decrease" onclick="updateStock(${product.id}, -1)" ${isOutOfStock ? 'disabled' : ''}>-</button>
+                                    <button class="btn-stock btn-increase" onclick="updateStock(${product.id}, 1)">+</button>
+                                    <button class="btn-stock btn-delete" onclick="deleteProduct(${product.id})">🗑️</button>
+                                </div>
+                            ` : currentUser ? `
+                                <button class="add-to-cart" onclick="orderProduct(${product.id})" ${isOutOfStock ? 'disabled' : ''}>${isOutOfStock ? 'Agotado' : 'Agregar al Carrito'}</button>
+                            ` : `
+                                <button class="add-to-cart" onclick="showLoginAlert()">Inicia sesión para ordenar</button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function addProduct() {
-            if (!currentUser || currentUser.role !== 'admin') {
-                alert('Solo el administrador puede agregar productos');
-                return;
-            }
-
-            const name = document.getElementById('productName').value;
+            if (!currentUser || currentUser.role !== 'admin') { alert('Solo el administrador puede agregar productos'); return; }
+            const name = document.getElementById('productName').value.trim();
             const price = parseFloat(document.getElementById('productPrice').value);
             const stock = parseInt(document.getElementById('productStock').value);
-            const description = document.getElementById('productDescription').value;
+            const description = document.getElementById('productDescription').value.trim();
+            if (!name || isNaN(price) || isNaN(stock) || !description) { alert('Complete todos los campos correctamente'); return; }
 
-            if (!name || !price || stock < 0 || !description) {
-                alert('Complete todos los campos correctamente');
-                return;
-            }
-
-            products.push({
-                id: Date.now(),
-                name,
-                price,
-                stock,
-                description,
-                image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop',
-                category: 'Platos del Día'
-            });
-
+            products.push({ id: Date.now(), name, price, stock, description, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop', category: 'Platos del Día' });
             renderProducts();
-            
-            // Limpiar formulario
+            // limpiar
             document.getElementById('productName').value = '';
             document.getElementById('productPrice').value = '';
             document.getElementById('productStock').value = '';
             document.getElementById('productDescription').value = '';
-            
             alert('Producto agregado exitosamente');
         }
 
         function updateStock(productId, change) {
-            if (!currentUser || currentUser.role !== 'admin') {
-                alert('Solo el administrador puede modificar el stock');
-                return;
-            }
-
+            if (!currentUser || currentUser.role !== 'admin') { alert('Solo el administrador puede modificar el stock'); return; }
             const product = products.find(p => p.id === productId);
             if (product) {
                 const newStock = product.stock + change;
-                if (newStock >= 0) {
-                    product.stock = newStock;
-                    renderProducts();
-                } else {
-                    alert('El stock no puede ser negativo');
-                }
+                if (newStock >= 0) { product.stock = newStock; renderProducts(); } else { alert('El stock no puede ser negativo'); }
             }
         }
 
         function deleteProduct(productId) {
-            if (!currentUser || currentUser.role !== 'admin') {
-                alert('Solo el administrador puede eliminar productos');
-                return;
-            }
-
+            if (!currentUser || currentUser.role !== 'admin') { alert('Solo el administrador puede eliminar productos'); return; }
             if (confirm('¿Está seguro de eliminar este producto de la pizarra?')) {
                 products = products.filter(p => p.id !== productId);
                 renderProducts();
@@ -1138,100 +601,59 @@
         }
 
         function orderProduct(productId) {
-            if (!currentUser) {
-                showLoginAlert();
-                return;
-            }
-            
+            if (!currentUser) { showLoginAlert(); return; }
             const product = products.find(p => p.id === productId);
-            if (product && product.stock > 0) {
-                addToCart(product);
-            }
+            if (product && product.stock > 0) addToCart(product);
         }
-        
-        function showLoginAlert() {
-            alert('Por favor inicia sesión para agregar productos al carrito');
-            showLogin();
-        }
-        
+
+        function showLoginAlert() { alert('Por favor inicia sesión para agregar productos al carrito'); showLogin(); }
+
         function addToCart(product) {
-            const existingItem = cart.find(item => item.id === product.id);
-            
-            if (existingItem) {
-                if (existingItem.quantity < product.stock) {
-                    existingItem.quantity++;
-                } else {
-                    alert('No hay suficiente stock disponible');
-                    return;
-                }
+            const existing = cart.find(item => item.id === product.id);
+            if (existing) {
+                if (existing.quantity < product.stock) existing.quantity++;
+                else { alert('No hay suficiente stock disponible'); return; }
             } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                    quantity: 1,
-                    maxStock: product.stock
-                });
+                cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, quantity: 1, maxStock: product.stock });
             }
-            
             updateCartUI();
             alert(`${product.name} agregado al carrito`);
         }
-        
+
         function toggleCart() {
             const modal = document.getElementById('cartModal');
             modal.classList.toggle('show');
-            if (modal.classList.contains('show')) {
-                renderCart();
-            }
+            if (modal.classList.contains('show')) renderCart();
         }
-        
+
         function updateCartUI() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalItems = cart.reduce((s,i) => s + i.quantity, 0);
             document.getElementById('cartCount').textContent = totalItems;
         }
-        
+
         function changeQuantity(productId, change) {
             const item = cart.find(i => i.id === productId);
-            if (item) {
-                const newQuantity = item.quantity + change;
-                if (newQuantity > 0 && newQuantity <= item.maxStock) {
-                    item.quantity = newQuantity;
-                    renderCart();
-                    updateCartUI();
-                } else if (newQuantity > item.maxStock) {
-                    alert('No hay suficiente stock disponible');
-                }
-            }
+            if (!item) return;
+            const newQ = item.quantity + change;
+            if (newQ > 0 && newQ <= item.maxStock) { item.quantity = newQ; renderCart(); updateCartUI(); }
+            else if (newQ > item.maxStock) alert('No hay suficiente stock disponible');
         }
-        
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            renderCart();
-            updateCartUI();
-        }
-        
+
+        function removeFromCart(productId) { cart = cart.filter(i => i.id !== productId); renderCart(); updateCartUI(); }
+
         function renderCart() {
             const cartItems = document.getElementById('cartItems');
             const cartFooter = document.getElementById('cartFooter');
-            
+            if (!cartItems) return;
             if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div class="cart-empty">
-                        <p>Tu carrito está vacío</p>
-                        <p style="font-size: 0.9rem;">Agrega productos para comenzar</p>
-                    </div>
-                `;
+                cartItems.innerHTML = `<div class="cart-empty"><p>Tu carrito está vacío</p><p style="font-size:0.9rem;">Agrega productos para comenzar</p></div>`;
                 cartFooter.style.display = 'none';
                 return;
             }
-            
             cartFooter.style.display = 'block';
-            
             cartItems.innerHTML = cart.map(item => `
                 <div class="cart-item">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image" />
                     <div class="cart-item-details">
                         <div class="cart-item-name">${item.name}</div>
                         <div class="cart-item-price">S/ ${item.price.toFixed(2)} c/u</div>
@@ -1239,109 +661,247 @@
                             <button class="btn-quantity" onclick="changeQuantity(${item.id}, -1)">-</button>
                             <span class="quantity-display">${item.quantity}</span>
                             <button class="btn-quantity" onclick="changeQuantity(${item.id}, 1)">+</button>
-                            <span style="margin-left: 1rem; color: #666;">S/ ${(item.price * item.quantity).toFixed(2)}</span>
+                            <span style="margin-left:1rem; color:#666;">S/ ${(item.price*item.quantity).toFixed(2)}</span>
                         </div>
                     </div>
                     <button class="btn-remove" onclick="removeFromCart(${item.id})">Eliminar</button>
                 </div>
             `).join('');
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = cart.reduce((s,i) => s + (i.price*i.quantity), 0);
             document.getElementById('cartTotal').textContent = `S/ ${total.toFixed(2)}`;
         }
-        
+
         function sendWhatsApp() {
-            if (cart.length === 0) {
-                alert('El carrito está vacío');
-                return;
-            }
-            
+            if (cart.length === 0) { alert('El carrito está vacío'); return; }
             let message = '🍽️ *PEDIDO RESTAURANTE FIESTA*\n\n';
-            
             cart.forEach(item => {
-                message += `• ${item.name}\n`;
-                message += `  Cantidad: ${item.quantity}\n`;
-                message += `  Precio: S/ ${(item.price * item.quantity).toFixed(2)}\n\n`;
+                message += `• ${item.name}\n  Cantidad: ${item.quantity}\n  Precio: S/ ${(item.price*item.quantity).toFixed(2)}\n\n`;
             });
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            message += `*TOTAL: S/ ${total.toFixed(2)}*\n\n`;
-            message += '¡Gracias por tu pedido!';
-            
-            const whatsappNumber = '51924516825'; // Número de WhatsApp del restaurante
+            const total = cart.reduce((s,i) => s + (i.price*i.quantity), 0);
+            message += `*TOTAL: S/ ${total.toFixed(2)}*\n\n¡Gracias por tu pedido!`;
+            const whatsappNumber = '51924516825';
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-            
+
             // Reducir stock de productos pedidos
-            cart.forEach(cartItem => {
-                const product = products.find(p => p.id === cartItem.id);
-                if (product) {
-                    product.stock -= cartItem.quantity;
-                }
+            cart.forEach(ci => {
+                const product = products.find(p => p.id === ci.id);
+                if (product) product.stock = Math.max(0, product.stock - ci.quantity);
             });
-            
-            // Limpiar carrito
+
             cart = [];
             updateCartUI();
             toggleCart();
             renderProducts();
-            
-            // Abrir WhatsApp
             window.open(whatsappUrl, '_blank');
         }
 
-        function renderProducts() {
-            const grid = document.getElementById('menuGrid');
-            
-            if (products.length === 0) {
-                grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: #999;">No hay productos disponibles</p>';
-                return;
+        /* ---------------------
+           Pizarra (admin/empleado view)
+           --------------------- */
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            if (tab === 'productos') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tabProductos').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tabPizarra').classList.add('active');
             }
-
-            grid.innerHTML = products.map(product => {
-                const isOutOfStock = product.stock === 0;
-                const isLowStock = product.stock > 0 && product.stock <= 5;
-                const stockClass = isOutOfStock ? 'out' : (isLowStock ? 'low' : '');
-                
-                return `
-                    <div class="menu-item ${isOutOfStock ? 'agotado' : ''}">
-                        <img src="${product.image}" alt="${product.name}">
-                        <div class="price-tag">S/ ${product.price.toFixed(2)}</div>
-                        <div class="menu-item-content">
-                            <div class="menu-category">${product.category}</div>
-                            <h3>${product.name}</h3>
-                            <p>${product.description}</p>
-                            
-                            ${currentUser ? `
-                                <div class="stock-info">
-                                    <span class="stock-label">Stock:</span>
-                                    <span class="stock-value ${stockClass}">${product.stock}</span>
-                                </div>
-                            ` : ''}
-                            
-                            ${currentUser && currentUser.role === 'admin' ? `
-                                <div class="admin-controls-card show">
-                                    <button class="btn-stock btn-decrease" onclick="updateStock(${product.id}, -1)" ${isOutOfStock ? 'disabled' : ''}>-</button>
-                                    <button class="btn-stock btn-increase" onclick="updateStock(${product.id}, 1)">+</button>
-                                    <button class="btn-stock btn-delete" onclick="deleteProduct(${product.id})">🗑️</button>
-                                </div>
-                            ` : currentUser ? `
-                                <button class="add-to-cart" onclick="orderProduct(${product.id})" ${isOutOfStock ? 'disabled' : ''}>
-                                    ${isOutOfStock ? 'Agotado' : 'Agregar al Carrito'}
-                                </button>
-                            ` : `
-                                <button class="add-to-cart" onclick="showLoginAlert()">
-                                    Inicia sesión para ordenar
-                                </button>
-                            `}
-                        </div>
-                    </div>
-                `;
-            }).join('');
         }
 
+        function initPizarra() {
+            loadPizarra();
+            renderPizarra();
+            attachPizarraEvents();
+            renderPizarraPublica();
+        }
+
+        function renderPizarra() {
+            const tbody = document.getElementById('pizarraBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            const q = (document.getElementById('pizarraSearch') && document.getElementById('pizarraSearch').value.trim().toLowerCase()) || '';
+            const sort = (document.getElementById('pizarraSort') && document.getElementById('pizarraSort').value) || 'name';
+            let list = pizarraProductos.slice();
+            if (q) list = list.filter(p => p.name.toLowerCase().includes(q));
+            if (sort === 'name') list.sort((a,b)=>a.name.localeCompare(b.name));
+            if (sort === 'price') list.sort((a,b)=>a.price - b.price);
+            if (sort === 'stock') list.sort((a,b)=>b.stock - a.stock);
+
+            if (list.length === 0) {
+                document.getElementById('pizarraEmpty').style.display = 'block';
+                document.getElementById('pizarraTable').style.display = 'none';
+                document.getElementById('pizarraEmpty').textContent = 'No hay productos';
+            } else {
+                document.getElementById('pizarraEmpty').style.display = 'none';
+                document.getElementById('pizarraTable').style.display = 'table';
+                list.forEach(p => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${escapeHtml(p.name)}</strong><div style="color:#94a3b8;font-size:0.85rem">ID: ${p.id}</div></td>
+                        <td>S/. ${p.price.toFixed(2)}</td>
+                        <td><span class="pizarra-pill">${p.stock}</span></td>
+                        <td>
+                            <div style="display:flex;gap:6px;align-items:center">
+                                <button data-action="dec" class="pizarra-btn" style="padding:6px 8px;font-size:0.9rem">-</button>
+                                <div style="min-width:36px;text-align:center">${p.pedido}</div>
+                                <button data-action="inc" class="pizarra-btn" style="padding:6px 8px;font-size:0.9rem">+</button>
+                            </div>
+                        </td>
+                        <td style="display:flex;gap:6px">
+                            <button data-action="editStock" class="pizarra-btn pizarra-btn-ghost" style="padding:6px 8px;font-size:0.9rem">Editar stock</button>
+                            <button data-action="remove" class="pizarra-btn" style="padding:6px 8px;font-size:0.9rem;background:#ef4444">Eliminar</button>
+                        </td>
+                    `;
+                    // if current user is not admin, hide actions
+                    if (!(currentUser && currentUser.role === 'admin')) {
+                        // remove action buttons
+                        tr.querySelectorAll('button[data-action]').forEach(b => b.style.display = 'none');
+                    } else {
+                        // attach data-id to buttons
+                        tr.querySelectorAll('button').forEach(btn => btn.dataset.id = p.id);
+                    }
+                    tbody.appendChild(tr);
+                });
+            }
+            updatePizarraSummary();
+        }
+
+        function updatePizarraSummary() {
+            const totalProductos = pizarraProductos.length;
+            const totalPedidos = pizarraProductos.reduce((s,p)=>s+p.pedido,0);
+            const totalValue = pizarraProductos.reduce((s,p)=>s+p.pedido*p.price,0);
+            const el = document.getElementById('pizarraSummary');
+            if (el) el.textContent = `Productos: ${totalProductos} • Items en pedido: ${totalPedidos} • Valor pedido: S/. ${totalValue.toFixed(2)}`;
+        }
+
+        function handlePizarraTableClick(e) {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const action = btn.dataset.action;
+            const id = btn.dataset.id;
+            const p = pizarraProductos.find(x=>x.id===id);
+            if (!p) return;
+            // Only admin allowed to act
+            if (!currentUser || currentUser.role !== 'admin') { alert('Solo admin puede modificar la pizarra'); return; }
+            if (action === 'inc') {
+                if (p.stock <= 0) { alert('No hay stock disponible'); return; }
+                p.pedido +=1; p.stock -=1; savePizarra(); renderPizarra();
+            } else if (action === 'dec') {
+                if (p.pedido <=0) return;
+                p.pedido -=1; p.stock +=1; savePizarra(); renderPizarra();
+            } else if (action === 'remove') {
+                if (!confirm(`¿Eliminar ${p.name}?`)) return;
+                pizarraProductos = pizarraProductos.filter(x=>x.id!==id); savePizarra(); renderPizarra();
+            } else if (action === 'editStock') {
+                const nuevo = prompt('Nuevo stock para '+p.name, String(p.stock));
+                if (nuevo===null) return;
+                const n = parseInt(nuevo);
+                if (Number.isNaN(n) || n<0) { alert('Valor inválido'); return; }
+                p.stock = n; savePizarra(); renderPizarra();
+            }
+        }
+
+        function attachPizarraEvents() {
+            const addForm = document.getElementById('pizarraAddForm');
+            if (addForm) {
+                addForm.addEventListener('submit', e=>{
+                    e.preventDefault();
+                    if (!(currentUser && currentUser.role === 'admin')) { alert('Solo admin'); return; }
+                    const name = document.getElementById('pizarraName').value.trim();
+                    const price = parseFloat(document.getElementById('pizarraPrice').value);
+                    const stock = parseInt(document.getElementById('pizarraStock').value,10);
+                    if (!name || isNaN(price) || isNaN(stock)) { alert('Complete correctamente todos los campos'); return; }
+                    pizarraProductos.push({ id: genPizarraId(), name, price, stock, pedido:0 });
+                    savePizarra(); renderPizarra(); addForm.reset();
+                });
+            }
+            const table = document.getElementById('pizarraTable');
+            if (table) table.addEventListener('click', handlePizarraTableClick);
+            const search = document.getElementById('pizarraSearch'); if (search) search.addEventListener('input', renderPizarra);
+            const sort = document.getElementById('pizarraSort'); if (sort) sort.addEventListener('change', renderPizarra);
+            const resetBtn = document.getElementById('pizarraResetBtn'); if (resetBtn) resetBtn.addEventListener('click', ()=>{ if(confirm('¿Restablecer la pizarra a datos de ejemplo?')) { localStorage.removeItem(LS_KEY); initPizarra(); }});
+        }
+
+        /* ---------------------
+           Pizarra publica (empleados)
+           --------------------- */
+        function renderPizarraPublica() {
+            const cont = document.getElementById('pizarraListaPublica');
+            if (!cont) return;
+            cont.innerHTML = '';
+            if (!pizarraProductos || pizarraProductos.length === 0) { cont.innerHTML = '<p style="color:#ccc;text-align:center;width:100%;">No hay productos en la pizarra.</p>'; return; }
+            pizarraProductos.forEach((p, idx) => {
+                const div = document.createElement('div');
+                div.className = 'pizarra-card';
+                div.innerHTML = `
+                    <h4>${p.name}</h4>
+                    <p>💰 S/ ${p.price.toFixed(2)}</p>
+                    <p>📦 Stock: ${p.stock}</p>
+                `;
+                // empleados see only, no actions
+                cont.appendChild(div);
+            });
+        }
+        function closePizarraPublico(){ document.getElementById('pizarraPublico').classList.add('hidden'); }
+
+        /* ---------------------
+           Util
+           --------------------- */
+        function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+        window.escapeHtml = escapeHtml;
+
+        /* ---------------------
+           Init (load everything)
+           --------------------- */
+        // initial load
+        loadPizarra();
+        initPizarra();
         renderProducts();
         updateCartUI();
+
+        // attach page-level events (login form)
+        window.showLogin = showLogin;
+        window.closeLogin = closeLogin;
+        window.handleLogin = handleLogin;
+        window.handleLogout = handleLogout;
+        window.updateStock = updateStock;
+        window.deleteProduct = deleteProduct;
+        window.orderProduct = orderProduct;
+        window.switchTab = switchTab;
+        window.openPizarraFromNav = openPizarraFromNav;
+
+        // pizarraPublico close button already uses closePizarraPublico()
+
+        // expose pizarra actions globally
+        window.cambiarStock = (index, delta) => {
+            // find by index within pizarraProductos
+            if (!currentUser || currentUser.role !== 'admin') { alert('Solo admin puede modificar la pizarra'); return; }
+            if (!pizarraProductos[index]) return;
+            pizarraProductos[index].stock = Math.max(0, pizarraProductos[index].stock + delta);
+            savePizarra();
+            renderPizarra();
+            renderPizarraPublica();
+        };
+        window.eliminarProducto = (index) => {
+            if (!currentUser || currentUser.role !== 'admin') { alert('Solo admin'); return; }
+            if (!pizarraProductos[index]) return;
+            if (confirm('¿Eliminar este producto de la pizarra?')) {
+                pizarraProductos.splice(index,1);
+                savePizarra();
+                renderPizarra();
+                renderPizarraPublica();
+            }
+        };
+
+        // handle window load for initial visibility update
+        window.addEventListener('load', () => {
+            // hide admin controls by default
+            document.getElementById('adminControls').classList.remove('show');
+            updateNavPizarraButton();
+        });
     </script>
 </body>
 </html>
