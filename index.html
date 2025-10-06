@@ -6,9 +6,10 @@
     <title>Restaurante Fiesta - Sabores auténticos del Perú</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        /* ===========================
-           TU CSS ORIGINAL (combinado)
-           =========================== */
+       /* ===========================
+          TU CSS ORIGINAL (combinado)
+          + OPTIMIZACIONES MÓVILES
+   =========================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Raleway', sans-serif; line-height: 1.6; color: #999; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
@@ -16,10 +17,10 @@
         /* Login Modal */
         .login-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
         .login-modal.show { display:flex; }
-        .login-box { background: white; padding: 3rem; border-radius: 20px; width: 100%; max-width: 400px; animation: slideDown 0.4s ease; }
+        .login-box { background: white; padding: 3rem; border-radius: 20px; width: 100%; max-width: 400px; animation: slideDown 0.4s ease; position: relative; } /* Añadido position: relative; */
         @keyframes slideDown { from { opacity:0; transform: translateY(-50px);} to { opacity:1; transform: translateY(0);} }
         .login-box h2 { text-align:center; color:#333; margin-bottom:2rem; font-size:1.8rem; }
-        .close-login { position:absolute; top:20px; right:20px; background:white; border:none; font-size:2rem; cursor:pointer; width:40px; height:40px; border-radius:50%; color:#333; }
+        .close-login { position:absolute; top:20px; right:20px; background:white; border:none; font-size:2rem; cursor:pointer; width:40px; height:40px; border-radius:50%; color:#333; display: flex; justify-content: center; align-items: center; } /* Mejorado el centrado */
         .form-group { margin-bottom:1.5rem; }
         .form-group label { display:block; margin-bottom:0.5rem; color:#333; font-weight:600; }
         .form-group input { width:100%; padding:1rem; border:2px solid #e0e0e0; border-radius:10px; font-size:1rem; }
@@ -35,6 +36,9 @@
         .header-content { display:flex; justify-content:space-between; align-items:center; padding:1rem 0; }
         .logo { font-size:2rem; font-weight:900; color:#333; }
         .logo span { color:#757272; font-size:0.8rem; margin-left:0.5rem; }
+        nav { /* Necesario para el menú móvil */
+            position: relative;
+        }
         nav ul { list-style:none; display:flex; gap:2rem; align-items:center; }
         nav a { text-decoration:none; color:#666664; font-weight:bold; transition:color 0.3s; }
         nav a:hover { color:#f73b56; }
@@ -55,7 +59,6 @@
         .hero-content { position:relative; z-index:10; }
         .home_text h2 { color:white; font-size:4rem; text-transform:uppercase; letter-spacing:13px; margin-bottom:1rem; font-weight:900; }
         .home_text p { color:white; font-size:1.2rem; text-transform:uppercase; margin-bottom:2rem; letter-spacing:3px; }
-
         .btn-hero { background:white; color:#413c3d; padding:15px 30px; border:none; border-radius:50px; font-weight:bold; font-size:1.1rem; cursor:pointer; transition:transform 0.3s; }
         .btn-hero:hover { transform:translateY(-2px); }
 
@@ -64,7 +67,6 @@
         .section-title { text-align:center; margin-bottom:60px; }
         .section-title h2 { font-size:2.5rem; color:#3d3d3d; text-transform:uppercase; letter-spacing:6px; margin-bottom:20px; font-weight:900; }
         .section-title::after { content:''; display:block; width:80px; height:3px; background:#4d4748; margin:0 auto; }
-
         .services-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:2rem; margin-top:3rem; }
         .single_service { text-align:center; padding:2rem; background:white; border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,0.1); transition:transform 0.3s; }
         .single_service:hover { transform:translateY(-5px); }
@@ -77,7 +79,7 @@
         .admin-controls { background:white; padding:2rem; border-radius:15px; margin-bottom:3rem; box-shadow:0 5px 20px rgba(0,0,0,0.1); display:none; }
         .admin-controls.show { display:block; }
         .admin-controls h3 { color:#333; margin-bottom:1.5rem; font-size:1.5rem; }
-        .admin-tabs { display:flex; gap:1rem; margin-bottom:2rem; }
+        .admin-tabs { display:flex; gap:1rem; margin-bottom:2rem; flex-wrap: wrap; } /* Añadido flex-wrap */
         .tab-btn { padding:0.8rem 1.5rem; background:#e0e0e0; color:#333; border:none; border-radius:8px; font-weight:600; cursor:pointer; transition:all 0.3s; }
         .tab-btn.active { background:#f73b56; color:white; }
         .tab-content { display:none; }
@@ -149,13 +151,194 @@
         .footer p { color:#999; }
         .copyright { border-top:1px solid #333; padding-top:2rem; margin-top:2rem; }
 
-        /* Responsive */
+        /* ===========================
+          RESPONSIVE (MÓVIL)
+        =========================== */
+
         @media (max-width: 768px) {
-            nav ul { display:none; }
-            .mobile-menu { display:block; }
-            .home_text h2 { font-size:2.5rem; letter-spacing:5px; }
-            .product-form { grid-template-columns:1fr; }
-            .section-title h2 { font-size:2rem; letter-spacing:3px; }
+            /* Reglas originales para ocultar menú de escritorio y mostrar hamburguesa */
+            nav ul { display: none; }
+            .mobile-menu { display: block; }
+            
+            /* Contenedor del menú para navegación móvil desplegable */
+            nav {
+                position: absolute;
+                top: 59px; /* Ajustado para estar justo debajo del header */
+                left: 0;
+                width: 100%;
+                height: 0;
+                max-height: 0; /* Oculto por defecto */
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+                background: white;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                z-index: 999; /* Para que quede debajo del modal de login */
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+
+            /* Clase para MOSTRAR el menú (activar con JavaScript) */
+            nav.nav-menu-open { 
+                max-height: 500px; /* Suficientemente grande para contener los ítems */
+                height: auto;
+                padding-bottom: 15px;
+            }
+
+            /* Estilos de la lista (UL) cuando el menú está abierto */
+            nav.nav-menu-open ul {
+                display: flex; /* Muestra el UL (que estaba oculto) */
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                width: 100%;
+                padding: 10px 0;
+            }
+            
+            /* Estilos de los enlaces individuales */
+            nav.nav-menu-open ul li {
+                width: 90%;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            nav.nav-menu-open a {
+                display: block;
+                padding: 12px 0;
+                color: #333 !important;
+                font-size: 1.1rem;
+            }
+            
+            .header-content {
+                padding: 0.8rem 0; /* Menos padding vertical en móviles */
+            }
+
+            .header-actions {
+                gap: 0.5rem; /* Reducir espacio entre elementos de acción */
+            }
+
+            .btn-header {
+                padding: 0.5rem 1rem; /* Botones de header más pequeños */
+                font-size: 0.9rem;
+            }
+
+            .home_text h2 { 
+                font-size: 2.5rem; 
+                letter-spacing: 5px; 
+            }
+            .section-title h2 { 
+                font-size: 2rem; 
+                letter-spacing: 3px; 
+            }
+            .product-form { 
+                grid-template-columns: 1fr; 
+            }
+        }
+
+        /* Reglas específicas para pantallas muy pequeñas (ej. menor a 480px) */
+        @media (max-width: 480px) {
+            /* Base */
+            body {
+                font-size: 14px;
+            }
+            .container {
+                padding: 0 10px; /* Reducir padding horizontal */
+            }
+
+            /* Header */
+            .logo {
+                font-size: 1.5rem;
+            }
+            .logo span {
+                font-size: 0.7rem;
+                margin-left: 0.2rem;
+            }
+            .btn-login-header {
+                padding: 0.4rem 0.8rem;
+            }
+            .btn-logout-header {
+                padding: 0.4rem 0.8rem;
+            }
+
+            /* Hero Section */
+            .home_text h2 {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+            .home_text p {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+            .btn-hero {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            /* Secciones Generales */
+            .services, .menu-section {
+                padding: 60px 0;
+            }
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            /* Login Modal */
+            .login-box {
+                padding: 2rem;
+                border-radius: 15px;
+                max-width: 90%;
+                margin: 15px;
+            }
+            .login-box h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            .form-group input {
+                padding: 0.8rem;
+                border-radius: 8px;
+            }
+            .close-login {
+                top: 10px;
+                right: 10px;
+                font-size: 1.5rem;
+                width: 30px;
+                height: 30px;
+            }
+            
+            /* Cart Modal */
+            .cart-content {
+                max-height: 95vh;
+                width: 95%;
+            }
+            .cart-header h2 {
+                font-size: 1.5rem;
+            }
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.8rem;
+            }
+            .cart-item-image {
+                width: 60px;
+                height: 60px;
+            }
+            .cart-item-controls {
+                margin-top: 0.8rem;
+                width: 100%;
+                justify-content: space-between;
+            }
+            .btn-remove {
+                margin-left: 0;
+            }
+
+            /* Pizarra Section */
+            .pizarra-login input {
+                width: 100%;
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+            .pizarra-login button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -852,7 +1035,33 @@
            --------------------- */
         function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
         window.escapeHtml = escapeHtml;
+        
+        /* ---------------------
+   Funcionalidad Menú Móvil
+   --------------------- */
+const mobileMenuButton = document.querySelector('.mobile-menu');
+const navElement = document.querySelector('nav');
 
+// Función para alternar la clase (mostrar/ocultar)
+function toggleMobileMenu() {
+    navElement.classList.toggle('nav-menu-open');
+}
+
+// 1. Añade el escuchador de eventos al botón de hamburguesa
+if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+}
+
+// 2. Cierra el menú automáticamente al hacer clic en un enlace de navegación (Buena UX)
+const navLinks = document.querySelectorAll('#mainNav a');
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        // Verifica si el menú está abierto antes de intentar cerrarlo
+        if (navElement.classList.contains('nav-menu-open')) {
+            toggleMobileMenu(); 
+        }
+    });
+});
         /* ---------------------
            Init (load everything)
            --------------------- */
